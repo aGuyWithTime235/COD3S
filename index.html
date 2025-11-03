@@ -1,334 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COD3S</title>
-<style>
-    html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #1e1e2f, #3a3a5c);
-        color: #fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COD3S</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5c);
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding-top: 40px;
-        box-sizing: border-box;
-    }
+        h1 {
+            font-size: 5rem;
+            margin: 0 0 40px 0; 
+            text-align: center;
+            line-height: 1; 
+            text-shadow: 2px 2px 10px #ff8c00, 0 0 20px #ff4500;
+        }
 
-    h1 {
-        font-size: 5vw;
-        text-align: center;
-        line-height: 1;
-        margin-bottom: 40px;
-        text-shadow: 2px 2px 10px #ff8c00, 0 0 20px #ff4500;
-    }
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
 
-    .input-container {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        position: relative;
-        max-width: 90vw;
-    }
+        input[type="text"] {
+            padding: 15px;
+            font-size: 1.5rem;
+            width: 300px;
+            text-align: center;
+            border: 2px solid #ff8c00;
+            border-radius: 12px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: 0.3s;
+        }
 
-    input[type="text"] {
-        padding: 15px;
-        font-size: 1.5rem;
-        width: 50vw;
-        min-width: 200px;
-        max-width: 500px;
-        text-align: center;
-        border: 2px solid #ff8c00;
-        border-radius: 12px;
-        outline: none;
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        transition: 0.3s;
-    }
+        input[type="text"]:focus {
+            border-color: #ff4500;
+            box-shadow: 0 0 10px #ff4500;
+        }
 
-    input[type="text"]:focus {
-        border-color: #ff4500;
-        box-shadow: 0 0 10px #ff4500;
-    }
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            background: #ff8c00;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #ff8c00;
+        }
 
-    button {
-        padding: 12px 25px;
-        font-size: 1.2rem;
-        border: none;
-        border-radius: 10px;
-        background: #ff8c00;
-        color: #fff;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 10px #ff8c00;
-    }
+        button:hover {
+            background: #ff4500;
+            box-shadow: 0 0 15px #ff4500;
+        }
 
-    button:hover {
-        background: #ff4500;
-        box-shadow: 0 0 15px #ff4500;
-    }
+        p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #ddd;
+            text-align: center;
+        }
 
-    p {
-        margin-top: 20px;
-        font-size: 1rem;
-        color: #ddd;
-        text-align: center;
-        max-width: 90vw;
-    }
+        #output {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            min-height: 50px;
+            text-align: center;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
 
-    #output {
-        margin-top: 30px;
-        font-size: 1.5rem;
-        min-height: 50px;
-        text-align: center;
-        color: #00ffff;
-        text-shadow: 0 0 5px #00ffff;
-    }
+        /* Carrot image */
+        #carrotImage {
+            width: 220px;
+            height: 220px;
+            cursor: pointer;
+            display: none; 
+            position: absolute;
+            left: -400px; 
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-    /* Carrot image */
-    #carrotImage {
-        width: 220px;
-        height: 220px;
-        cursor: pointer;
-        display: none; 
-        position: absolute;
-        left: -400px; 
-        top: 50%;
-        transform: translateY(-50%);
-        max-width: 25vw;
-    }
+        /* COD3S Page secret */
+        #cod3sContainer {
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(400px, -50%);
+        }
 
-    /* COD3S Page secret */
-    #cod3sContainer {
-        position: absolute;
-        display: none;
-        top: 50%;
-        left: 50%;
-        transform: translate(400px, -50%);
-        max-width: 90vw;
-    }
+        #cod3sImage {
+            width: 255px;
+            height: 300px;
+            cursor: pointer;
+            display: block;
+            position: relative;
+        }
 
-    #cod3sImage {
-        width: 255px;
-        height: 300px;
-        cursor: pointer;
-        display: block;
-        position: relative;
-        max-width: 30vw;
-        height: auto;
-    }
+        #cod3sText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            text-align: center;
+            font-size: 1rem;
+            color: #ffffff;
+            text-shadow: 1px 1px 5px #000;
+        }
 
-    #cod3sText {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        text-align: center;
-        font-size: 1rem;
-        color: #ffffff;
-        text-shadow: 1px 1px 5px #000;
-    }
+        /* TVtime Player */
+        #tvPlayer {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 400px;
+            height: 230px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border: 2px solid #ff8c00;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #ff4500;
+            z-index: 10000;
+        }
 
-    /* TVtime video player */
-    #videoPlayerContainer {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        background: rgba(0,0,0,0.7);
-        padding: 10px;
-        border-radius: 10px;
-        display: none;
-        z-index: 9999;
-        max-width: 90vw;
-    }
+        #tvPlayer video {
+            width: 100%;
+            height: 200px;
+            border-radius: 6px;
+        }
 
-    #videoPlayerContainer video {
-        max-width: 400px;
-        height: auto;
-        display: block;
-        margin-bottom: 5px;
-    }
+        #tvPlayer button {
+            background: #ff8c00;
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 5px 12px;
+        }
 
-    /* Mini recursive screen */
-    .mini-screen-container {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        width: 300px;
-        height: 200px;
-        border: 2px solid #fff;
-        overflow: hidden;
-        background: rgba(0,0,0,0.7);
-        z-index: 999;
-    }
-
-    .mini-screen-container .mini-screen {
-        width: 100%;
-        height: 100%;
-        transform-origin: bottom right;
-        position: relative;
-    }
-</style>
+        #tvPlayer button:hover {
+            background: #ff4500;
+        }
+    </style>
 </head>
 <body>
-<h1>COD3S</h1>
+    <h1>COD3S</h1>
 
-<div class="input-container">
-    <img id="carrotImage" src="https://file.garden/Z-CUTZ9vlwLEFzWU/CarrotSticker.png" alt="Carrot Sticker">
-    <input type="text" id="inputBox" placeholder="Type something..." />
-    <button id="goButton">Go</button>
-</div>
+    <div class="input-container">
+        <img id="carrotImage" src="https://file.garden/Z-CUTZ9vlwLEFzWU/CarrotSticker.png" alt="Carrot Sticker">
+        <input type="text" id="inputBox" placeholder="Type something..." />
+        <button id="goButton">Go</button>
+    </div>
 
-<p>Type Cool things and cool things appear! Here's a code: Carrot</p>
-<div id="output"></div>
+    <p>Type Cool things and cool things appear! Here's a code: Carrot</p>
+    <div id="output"></div>
 
-<audio id="carrotSound" src="https://file.garden/Z-CUTZ9vlwLEFzWU/Carrot.mp3"></audio>
+    <!-- Carrot Sound -->
+    <audio id="carrotSound" src="https://file.garden/Z-CUTZ9vlwLEFzWU/Carrot.mp3"></audio>
 
-<div id="cod3sContainer">
-    <img id="cod3sImage" src="https://file.garden/Z-CUTZ9vlwLEFzWU/Page.png" alt="COD3S Page">
-    <div id="cod3sText"></div>
-</div>
+    <!-- COD3S Page Secret -->
+    <div id="cod3sContainer">
+        <img id="cod3sImage" src="https://file.garden/Z-CUTZ9vlwLEFzWU/Page.png" alt="COD3S Page">
+        <div id="cod3sText"></div>
+    </div>
 
-<div id="videoPlayerContainer">
-    <video id="videoPlayer" controls></video>
-    <button id="prevVideo">Previous video</button>
-    <button id="nextVideo">Next video</button>
-</div>
+    <!-- TVtime Player -->
+    <div id="tvPlayer">
+        <video id="tvVideo" controls></video>
+        <div>
+            <button id="prevBtn">Previous Video</button>
+            <button id="nextBtn">Next Video</button>
+        </div>
+    </div>
 
-<script>
-const goButton = document.getElementById('goButton');
-const inputBox = document.getElementById('inputBox');
-const outputDiv = document.getElementById('output');
+    <script>
+        const goButton = document.getElementById('goButton');
+        const inputBox = document.getElementById('inputBox');
+        const outputDiv = document.getElementById('output');
+        const carrotImage = document.getElementById('carrotImage');
+        const carrotSound = document.getElementById('carrotSound');
+        const cod3sContainer = document.getElementById('cod3sContainer');
+        const cod3sImage = document.getElementById('cod3sImage');
+        const cod3sText = document.getElementById('cod3sText');
+        const tvPlayer = document.getElementById('tvPlayer');
+        const tvVideo = document.getElementById('tvVideo');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
-const carrotImage = document.getElementById('carrotImage');
-const carrotSound = document.getElementById('carrotSound');
-let carrotFound = false;
+        let carrotFound = false;
+        const cod3sTexts = [
+            "I like carrots",
+            "Did you know? Geometry Dash was inspired by Joe Metri Dash, who had to jump spikes for sport.",
+            "This is a placeholder!",
+            "Webi wabu",
+            "What. (By Spunix)",
+            "gstgd iaaue tfgtytidtuasgt ay ygu gt e4674 eie47 egsgaia e1111111111111",
+            "I like car",
+            "Whoa stop right there pal, ur clicking too good.",
+            "This program was brought to you by Blocky's Funny Doings International.",
+            "insert text here",
+            "Psst, Type gullible for a free Code!",
+            "Hey, By the way, type TVtime for some entertainment!"
+        ];
 
-const cod3sContainer = document.getElementById('cod3sContainer');
-const cod3sImage = document.getElementById('cod3sImage');
-const cod3sText = document.getElementById('cod3sText');
+        let cod3sLastIndex = -1;
+        function getRandomCod3sText() {
+            if (cod3sTexts.length === 1) return cod3sTexts[0];
+            let index;
+            do {
+                index = Math.floor(Math.random() * cod3sTexts.length);
+            } while (index === cod3sLastIndex);
+            cod3sLastIndex = index;
+            return cod3sTexts[index];
+        }
 
-const cod3sTexts = [
-    "I like carrots",
-    "Did you know? Geometry Dash was inspired by the true story of a man named Joe Metri Dash...",
-    "This is a placeholder!",
-    "Webi wabu",
-    "What. (By Spunix)",
-    "gstgd iaaue tfgtytidtuasgt  ay ygu gt e4674 eie47 egsgaia e1111111111111",
-    "I like car",
-    "Whoa stop right there pal, ur clicking too good.",
-    "This program Was brought to you by Blocky's Funny Doings International.",
-    "insert text here",
-    "Psst, Type gullible for a free Code!",
-    "Hey, By the way, type TVtime for some entertainment!"
-];
+        // TVtime video list
+        const videos = [
+            "https://file.garden/Z-CUTZ9vlwLEFzWU/Minecraft%20parkour%20gameplay%201%20minute.mp4",
+            "https://file.garden/Z-CUTZ9vlwLEFzWU/Top%205%20Top%205%20Scariest%20Jumpscares.mp4",
+            "https://file.garden/Z-CUTZ9vlwLEFzWU/Anarchy%20Chess_%20Reddit's%20Greatest%20Sh_tpost.mp4",
+            "https://file.garden/Z-CUTZ9vlwLEFzWU/BFDI%201a_%20Take%20the%20Plunge.mp4",
+            "https://file.garden/Z-CUTZ9vlwLEFzWU/Nothing%20Beats%20a%20Jet2holiday%20_%20Sale%20_%20Family%20_%20TV%20advert.mp4",
+            "https://file.garden/Z-CUTZ9vlwLEFzWU/A%20Podcast%20That%20Makes%20The%20Sign%20Guy%20Say%20Something%20Different.mp4"
+        ];
+        let currentVideo = 0;
 
-let cod3sLastIndex = -1;
-function getRandomCod3sText() {
-    if (cod3sTexts.length === 1) return cod3sTexts[0];
-    let index;
-    do { index = Math.floor(Math.random() * cod3sTexts.length); }
-    while (index === cod3sLastIndex);
-    cod3sLastIndex = index;
-    return cod3sTexts[index];
-}
+        function showTVTime() {
+            tvPlayer.style.display = "flex";
+            tvVideo.src = videos[currentVideo];
+        }
 
-// TVtime videos
-const videos = [
-    "https://file.garden/Z-CUTZ9vlwLEFzWU/Minecraft%20parkour%20gameplay%201%20minute.mp4",
-    "https://file.garden/Z-CUTZ9vlwLEFzWU/Top%205%20Top%205%20Scariest%20Jumpscares.mp4",
-    "https://file.garden/Z-CUTZ9vlwLEFzWU/Anarchy%20Chess_%20Reddit's%20Greatest%20Sh_tpost.mp4",
-    "https://file.garden/Z-CUTZ9vlwLEFzWU/BFDI%201a_%20Take%20the%20Plunge.mp4",
-    "https://file.garden/Z-CUTZ9vlwLEFzWU/Nothing%20Beats%20a%20Jet2holiday%20_%20Sale%20_%20Family%20_%20TV%20advert.mp4",
-    "https://file.garden/Z-CUTZ9vlwLEFzWU/A%20Podcast%20That%20Makes%20The%20Sign%20Guy%20Say%20Something%20Different.mp4"
-];
-let currentVideo = 0;
-const videoPlayerContainer = document.getElementById('videoPlayerContainer');
-const videoPlayer = document.getElementById('videoPlayer');
-const nextVideoBtn = document.getElementById('nextVideo');
-const prevVideoBtn = document.getElementById('prevVideo');
+        nextBtn.addEventListener("click", () => {
+            currentVideo = (currentVideo + 1) % videos.length;
+            tvVideo.src = videos[currentVideo];
+        });
+        prevBtn.addEventListener("click", () => {
+            currentVideo = (currentVideo - 1 + videos.length) % videos.length;
+            tvVideo.src = videos[currentVideo];
+        });
 
-function showVideoPlayer() {
-    videoPlayerContainer.style.display = 'block';
-    videoPlayer.src = videos[currentVideo];
-    videoPlayer.play();
-}
+        // Recursive mini screen function
+        function createMiniScreen(level, maxLevel, parent) {
+            if (level > maxLevel) return;
 
-nextVideoBtn.addEventListener('click', () => {
-    currentVideo = (currentVideo + 1) % videos.length;
-    videoPlayer.src = videos[currentVideo];
-    videoPlayer.play();
-});
+            const iframe = document.createElement('iframe');
+            iframe.srcdoc = document.documentElement.outerHTML;
+            iframe.style.position = "absolute";
+            iframe.style.bottom = "20px";
+            iframe.style.right = "20px";
+            iframe.style.width = `${300 * Math.pow(0.75, level - 1)}px`;
+            iframe.style.height = `${200 * Math.pow(0.75, level - 1)}px`;
+            iframe.style.border = "2px solid #ff8c00";
+            iframe.style.borderRadius = "10px";
+            iframe.style.overflow = "hidden";
+            iframe.style.transformOrigin = "bottom right";
+            iframe.style.zIndex = 9999 - level;
 
-prevVideoBtn.addEventListener('click', () => {
-    currentVideo = (currentVideo - 1 + videos.length) % videos.length;
-    videoPlayer.src = videos[currentVideo];
-    videoPlayer.play();
-});
+            parent.appendChild(iframe);
 
-// Mini screens recursive
-let miniScreenLevel = 0;
-const maxMiniScreenLevel = 5;
+            iframe.onload = () => {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const iframeScript = iframeDoc.createElement("script");
+                iframeScript.textContent = `
+                    (${createMiniScreen.toString()})(${level + 1}, ${maxLevel}, document.body);
+                `;
+                iframeDoc.body.appendChild(iframeScript);
+            };
+        }
 
-function createMiniScreen() {
-    if (miniScreenLevel >= maxMiniScreenLevel) return;
-    miniScreenLevel++;
+        // Main input handler
+        function handleInput() {
+            const userInput = inputBox.value.trim();
 
-    const container = document.createElement('div');
-    container.classList.add('mini-screen-container');
+            if (userInput.toLowerCase() === "carrot") {
+                carrotFound = true;
+            }
+            carrotImage.style.display = carrotFound ? "block" : "none";
+            outputDiv.textContent = carrotFound ? "You found the Carrot!" : "";
 
-    const iframe = document.createElement('iframe');
-    iframe.src = window.location.href;
-    iframe.classList.add('mini-screen');
-    container.appendChild(iframe);
-    document.body.appendChild(container);
-}
+            if (userInput === "COD3S") {
+                cod3sContainer.style.display = "block";
+                cod3sText.textContent = getRandomCod3sText();
+            }
 
-function handleInput() {
-    const userInput = inputBox.value.trim();
+            if (userInput.toLowerCase() === "tvtime") {
+                showTVTime();
+            }
 
-    // Carrot secret
-    if (userInput.toLowerCase() === "carrot") {
-        carrotFound = true;
-    }
-    if (carrotFound) carrotImage.style.display = "block";
+            if (userInput === "Type something...") {
+                createMiniScreen(1, 6, document.body);
+                outputDiv.textContent = "Recursive screen created!";
+            }
+        }
 
-    // COD3S Page secret
-    if (userInput === "COD3S") {
-        cod3sContainer.style.display = "block";
-        cod3sText.textContent = getRandomCod3sText();
-    }
+        goButton.addEventListener('click', handleInput);
+        inputBox.addEventListener('keydown', e => {
+            if (e.key === 'Enter') handleInput();
+        });
 
-    // TVtime
-    if (userInput === "TVtime") showVideoPlayer();
+        carrotImage.addEventListener('click', () => {
+            carrotSound.currentTime = 0;
+            carrotSound.play();
+        });
 
-    // Mini screen
-    if (userInput === "Type something...") createMiniScreen();
-}
-
-goButton.addEventListener('click', handleInput);
-inputBox.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleInput(); });
-
-carrotImage.addEventListener('click', () => {
-    carrotSound.currentTime = 0;
-    carrotSound.play();
-});
-
-cod3sImage.addEventListener('click', () => {
-    cod3sText.textContent = getRandomCod3sText();
-});
-</script>
+        cod3sImage.addEventListener('click', () => {
+            cod3sText.textContent = getRandomCod3sText();
+        });
+    </script>
 </body>
 </html>
